@@ -17,10 +17,18 @@ head.SetAnchor(0.5, 1)
 head.SetParent(torso)
 head.y = 33
 
+hair = CreateSprite("appearance/hair", "BelowArena")
+hair.SetAnchor(0.4, 1)
+hair.SetParent(head)
+hair.y = -52
+hair.x = 16
+
 function UpdateAnimation()
     animationtimer = animationtimer + 1
     torso.Scale(1, 1 + math.sin(animationtimer/180*math.pi) / 50)
     torso.y = 33 + math.sin(animationtimer/180*math.pi)
+    hair.rotation = math.cos(animationtimer/55*math.pi)
+    hair.x = 16 + math.cos(animationtimer/55*math.pi)
 end
 
 function SetPartAnimation(part, sprites, timer)

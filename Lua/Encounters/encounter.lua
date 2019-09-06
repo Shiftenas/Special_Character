@@ -3,7 +3,7 @@ require "Animations/someone"
 
 -- music = "shine_on_you_crazy_diamond" --Either OGG or WAV. Extension is added automatically. Uncomment for custom music.
 encountertext = "What a shame..." --Modify as necessary. It will only be read out in the action select screen.
-nextwaves = {""}
+nextwaves = {"debug"}
 wavetimer = 4.0
 autolinebreak = true
 arenasize = {155, 130}
@@ -33,6 +33,8 @@ function EnemyDialogueStarting()
 end
 
 function EnemyDialogueEnding()
+    Immobilize()
+    CutHair()
     -- Good location to fill the 'nextwaves' table with the attacks you want to have simultaneously.
 end
 

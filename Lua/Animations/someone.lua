@@ -1,11 +1,13 @@
 
 
-
+cut = false
+updating = true
+cuttimer = 0
 animationtimer = 0
 
 legs = CreateSprite("appearance/legs/normal", "BelowArena")
 legs.x = 320
-legs.y = 275
+legs.y = 279
 
 torso = CreateSprite("appearance/torso/normal", "BelowArena")
 torso.SetAnchor(0.5, 1)
@@ -24,11 +26,28 @@ hair.y = -52
 hair.x = 16
 
 function UpdateAnimation()
-    animationtimer = animationtimer + 1
-    torso.Scale(1, 1 + math.sin(animationtimer/180*math.pi) / 50)
-    torso.y = 33 + math.sin(animationtimer/180*math.pi)
-    hair.rotation = math.cos(animationtimer/55*math.pi)
-    hair.x = 16 + math.cos(animationtimer/55*math.pi)
+    if updating then
+        animationtimer = animationtimer + 1
+        torso.Scale(1, 1 + math.sin(animationtimer/180*math.pi) / 50)
+        torso.y = 33 + math.sin(animationtimer/180*math.pi)
+        hair.rotation = math.cos(animationtimer/55*math.pi)
+        hair.x = 16 + math.cos(animationtimer/55*math.pi)
+    end
+    if cut and cuttimer <= 15 then
+        cuttimer = cuttimer + 1
+        hair.y = hair.y - 0.5
+        hair.alpha = hair.alpha - 1/15
+    end
+end
+
+function Immobilize()
+    updating = false
+    torso.Scale(1, 1)
+    torso.y = 33
+    if hair.isactive then
+        hair.x = 16
+        hair.rotation = 0
+    end
 end
 
 function SetPartAnimation(part, sprites, timer)
@@ -52,4 +71,8 @@ function SetPartAnimation(part, sprites, timer)
         end
         legs.SetAnimation(animation, timer)
     end
+end
+
+function CutHair()
+    cut = true
 end
